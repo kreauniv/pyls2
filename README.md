@@ -2,6 +2,8 @@
 
 A simple program to illustrate iterative development for COMP350.
 
+[Link to video](https://drive.google.com/file/d/1Zzlg2fzZlPV1G-knN9CdlIzseRlGC_GE/view?usp=drive_link)
+
 The ask is to develop a simplified version of the `ls` program.
 The script is expected to be run in the following ways --
 
