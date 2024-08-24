@@ -13,7 +13,7 @@ parser.add_argument(
 parser.add_argument(
     "-F",
     "--filetype",
-    help="Shows a file type indicator character for directories.",
+    help="Shows a file type indicator character for directories and executable files.",
     action="store_true",
 )
 args = parser.parse_args()
@@ -51,7 +51,11 @@ def file_info(dirname, filename):
     assert os.path.isdir(dirname)
 
     path = os.path.join(dirname, filename)
-    return {"filename": filename, "isdir": os.path.isdir(path)}
+    return {
+        "filename": filename,
+        "isdir": os.path.isdir(path),
+        "isexecfile": os.access(path, os.X_OK) and not os.path.isdir(path),
+    }
 
 
 def display_dir_contents(dircontents, show_filetype):
@@ -76,7 +80,12 @@ def filetype_char(info):
     :returns: '/' if the entity is a directory, and '*' if it is
        an executable file and '' in other cases.
     """
-    return "/" if info["isdir"] else ""
+    ch = ""
+    if info["isdir"]:
+        ch += "/"
+    if info["isexecfile"]:
+        ch += "*"
+    return ch
 
 
 if __name__ == "__main__":
